@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 mylib = { path = "../mylib" }
 clap = { version = "4", features = ["derive"] }
+tracing = { version = "0.1" }

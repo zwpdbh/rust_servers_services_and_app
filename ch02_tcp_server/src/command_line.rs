@@ -9,9 +9,13 @@ pub struct Arguments {
 
 #[derive(Subcommand, Debug, Clone)]
 pub enum SubCommand {
-    Ex01 {
+    Server {
         #[arg(short, long)]
-        id: String,
+        port: u32,
+    },
+    Client {
+        #[arg(short, long)]
+        port: u32,
     },
     Ex02 {
         #[clap(subcommand)]
