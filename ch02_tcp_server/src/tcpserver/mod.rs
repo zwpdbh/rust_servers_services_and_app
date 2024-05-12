@@ -1,4 +1,4 @@
-use std::net::TcpListener;
+use std::{io::Read, io::Write, net::TcpListener};
 use tracing::info;
 
 pub fn run(port: u32) {
@@ -6,7 +6,16 @@ pub fn run(port: u32) {
     info!("running on port: {}", port);
 
     for stream in connect_listener.incoming() {
-        let _stream = stream.unwrap();
-        info!("connect established");
+        match stream {
+            Ok(mut stream) => {
+                info!("connect established");
+                let mut buffer = [0; 1024];
+                stream.read(&mut buffer).unwrap();
+                stream.write(&mut buffer).unwrap();
+            }
+            Err(e) => {
+                info!("connection failed: {}", e)
+            }
+        }
     }
 }
